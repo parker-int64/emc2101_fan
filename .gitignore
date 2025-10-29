@@ -1,0 +1,96 @@
+# IDEs / editors
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# macOS
+.DS_Store
+
+# Build directories
+build/
+bin/
+obj/
+out/
+dist/
+release/
+debug/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CMakeScripts/
+CTestTestfile.cmake
+Makefile
+install_manifest.txt
+compile_commands.json
+
+# Meson / Ninja
+.ninja_deps
+.ninja_log
+meson-logs/
+
+# Autotools
+config.status
+configure
+config.log
+
+# Generic object / binary / libraries
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.elf
+*.ko
+
+# Static / archive libs
+*.a
+*.lib
+*.la
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Debug / profiling / coverage
+*.pdb
+*.ilk
+*.idb
+*.dSYM/
+*.gcno
+*.gcda
+*.gcov
+coverage/
+
+# Visual Studio specific
+*.suo
+*.user
+*.userosscache
+*.VC.db
+*.vcxproj.user
+
+# Package managers / build systems
+.conan/
+conanbuildinfo.*
+*.cmake
+pkgconfig/
+
+# Generated files
+*.o.d
+*.obj.d
+*.mod
+*.lo
+*.la
+
+# Misc
+tags
+TAGS
+*.log
+*.tmp
+*~
+*.swp
