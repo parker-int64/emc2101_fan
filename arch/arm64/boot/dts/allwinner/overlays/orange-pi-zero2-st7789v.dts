@@ -1,0 +1,28 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "xunlong,orangepi-zero2", "allwinner,sun50i-h616";
+
+    fragment@0 {
+        target = <&spi1>;         /* 指向 spi1 控制器 */
+        __overlay__ {
+            status = "okay";       /* 启用 SPI 控制器 */
+
+            st7789v@0 {            /* SPI 子设备，@0 为 CS 0 */
+                compatible = "sitronix,st7789v";
+                reg = <0>;          /* CS 0 */
+                spi-max-frequency = <80000000>; /* 最大 SPI 频率 */
+
+                /* GPIO 引脚绑定 */
+                dc-gpios = <&pio 2 4 GPIO_ACTIVE_HIGH>;    /* DC */
+                reset-gpios = <&pio 2 5 GPIO_ACTIVE_LOW>; /* RESET */
+
+                backlight = <&backlight>; /* 可选，若有背光节点 */
+                rotate = <90>;             /* 屏幕旋转 */
+
+                status = "okay";
+            };
+        };
+    };
+};

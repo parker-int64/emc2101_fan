@@ -1,0 +1,54 @@
+#
+# Hardware monitoring chip drivers configuration
+#
+
+menuconfig HWMON
+	tristate "Hardware Monitoring support"
+	depends on HAS_IOMEM
+	default y
+	help
+	  Hardware monitoring devices let you monitor the hardware health
+	  of a system. Most modern motherboards include such a device. It
+	  can include temperature sensors, voltage sensors, fan speed
+	  sensors and various additional features such as the ability to
+	  control the speed of the fans.  If you want this support you
+	  should say Y here and also to the specific driver(s) for your
+	  sensors chip(s) below.
+
+	  To find out which specific driver(s) you need, use the
+	  sensors-detect script from the lm_sensors package.  Read
+	  <file:Documentation/hwmon/userspace-tools> for details.
+
+	  This support can also be built as a module.  If so, the module
+	  will be called hwmon.
+
+if HWMON
+
+config HWMON_VID
+	tristate
+	default n
+
+config HWMON_DEBUG_CHIP
+	bool "Hardware Monitoring Chip debugging messages"
+	default n
+	help
+	  Say Y here if you want the I2C chip drivers to produce a bunch of
+	  debug messages to the system log.  Select this if you are having
+	  a problem with I2C support and want to see more of what is going
+	  on.
+
+comment "Native drivers"
+
+config SENSORS_EMC2101
+	tristate "SMSC EMC2101"
+	depends on I2C
+	help
+	  If you say yes here you get support for the temperature
+	  and fan sensors of the SMSC EMC2101 chips.
+
+	  This driver can also be built as a module.  If so, the module
+	  will be called emc2101.
+
+endif # ACPI
+
+endif # HWMON
