@@ -394,14 +394,20 @@ static const unsigned int regs_temp_ext_min[2] = {REG_TEMP_EXT_MIN_HI, REG_TEMP_
 
 static inline int emc2101_read_u16(struct emc2101_data *data, const unsigned int *regs, u16 *val)
 {
-	u8 read_seq[2];
+	unsigned int high, low;
 	int ret;
 
-	ret = regmap_multi_reg_read(data->regmap, regs, read_seq, 2);
-	if (!ret) {
-		*val = (read_seq[0] & 0xff) << 8;
-		*val |= read_seq[1] & 0xff;
-	}
+	ret = regmap_read(data->regmap, regs[0], &high);
+	
+	if (ret < 0)
+		return ret;
+
+	ret = regmap_read(data->regmap, regs[1], &low);
+
+	if (ret < 0)
+        	return ret;
+
+	*val = (high & 0xFF) << 8 | (low & 0xFF);
 
 	return ret;
 }
@@ -1971,7 +1977,7 @@ static const struct hwmon_ops emc2101_ops = {
 };
 
 static const struct hwmon_chip_info emc2101_chip_info = {
-	.info = emc2101_info,
+	.info = (const struct hwmon_channel_info **)emc2101_info,
 	.ops = &emc2101_ops,
 };
 
@@ -2065,11 +2071,11 @@ static bool emc2101_regmap_is_volatile(struct device *dev, unsigned int reg)
 static const struct regmap_config emc2101_regmap_config = {
 	.reg_bits = 8,
 	.val_bits = 8,
-	.cache_type = REGCACHE_MAPLE,
+	.cache_type = REGCACHE_RBTREE,
 	.volatile_reg = emc2101_regmap_is_volatile,
 };
 
-static int emc2101_probe(struct i2c_client *client)
+static int emc2101_probe(struct i2c_client *client, const struct i2c_device_id *id)
 {
 	struct i2c_adapter *adapter = client->adapter;
 	struct device *dev = &client->dev;
@@ -2174,3 +2180,6 @@ static struct i2c_driver emc2101_driver = {
 module_i2c_driver(emc2101_driver);
 
 MODULE_AUTHOR("Álvaro Fernández Rojas <noltari@gmail.com>");
+MODULE_DESCRIPTION("EMC2101 Temperature Sensor and Fan Controller Driver");
+MODULE_LICENSE("GPL");
+MODULE_VERSION("1.0");
