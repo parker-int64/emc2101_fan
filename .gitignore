@@ -22,7 +22,6 @@ CMakeCache.txt
 cmake_install.cmake
 CMakeScripts/
 CTestTestfile.cmake
-Makefile
 install_manifest.txt
 compile_commands.json
 
