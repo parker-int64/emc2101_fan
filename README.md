@@ -1,6 +1,7 @@
 # EMC2101 FAN Controller on OrangePi Zero2
 
-`note > This was operated on Armbian, with kernel 6.1
+> [!NOTE]
+> Operations were conducted on Armbian with Linux Kernel 6.1
 
 + Install the kernel headers
 
@@ -58,7 +59,7 @@ Navigate to `System` -> `Hardware` and select `ph-emc2101` and `ph-i2c3` (and yo
 <div align="center">
   <img
     src="https://raw.githubusercontent.com/parker-int64/emc2101_fan/main/screenshot/orangipi-config-screenshot.webp"
-    width="400"
+    width="800"
   />
 </div>
 
