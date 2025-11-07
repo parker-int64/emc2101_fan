@@ -1,9 +1,11 @@
 /dts-v1/;
 /plugin/;
 
+#include <dt-bindings/gpio/gpio.h>
+
 / {
     compatible = "xunlong,orangepi-zero2", "allwinner,sun50i-h616";
-    fragment@2 {
+    fragment@0 {
         target = <&spi1>;
         __overlay__ {
             status = "okay";
@@ -15,12 +17,13 @@
                 compatible = "sitronix,st7789v";
                 reg = <1>;
                 bgr;
-                fps = <30>;
+                fps = <60>;
                 buswidth = <8>;
-                spi-max-frequency = <40000000>; // 40MHz
-                reset-gpios = <&pio 2 9 1>;  // PC9
-                dc-gpios = <&pio 2 6 0>;     // PC6
-                led-gpios = <&pio 2 5 0>;    // PC5
+                rotate = <270>;
+                spi-max-frequency = <80000000>;             // 80MHz
+                reset-gpios = <&pio 2 9 GPIO_ACTIVE_LOW>;   // PC9
+                dc-gpios = <&pio 2 6 GPIO_ACTIVE_HIGH>;     // PC6
+                led-gpios = <&pio 2 5 GPIO_ACTIVE_HIGH>;    // PC5
                 spi-cpol;
                 spi-cpha;
             };
